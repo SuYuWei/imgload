@@ -1,33 +1,69 @@
 $(function(){
 
-	for(var i=0;i<1000;i++){
-		var img_url = "http://fakeimg.pl/70x70/000?"+Math.floor((Math.random()*1000)+1);
-		var grid = "<div class=\"mem\">"+
-		            "<div class=\"img waitLoad\" data-url=\""+img_url+"\"></div>"+
-		        	"<div class=\"name\">test</div>"+
-		        "</div>";
-		$(".contact-mems").append(grid);
-	}
-  	
-  	var tmp = $(".contact-mems").find(".img.waitLoad:lt(100)");
-	$.each(tmp, function(index,domTmp){
-		var dom = $(domTmp);
-		dom.css("background-image","url("+dom.attr("data-url")+")").removeClass("waitLoad").removeAttr("data-url");
-	});
+	var pagination = $(".pagination");
+	var arr = [];
+	for(var i=0;i<123;i++){
 
-	var memContainer = $(".contact-mems");
-	var g_contactWaitLoadImgs = memContainer.find(".img.waitLoad");
-	memContainer.scroll(function(e) {
-		if( null == g_contactWaitLoadImgs) return;
+		var img_url = "http://fakeimg.pl/70x70/"+Math.floor((Math.random()*100000)+99999);
 		
-		var height = $(this).height()+100;
-		for(var i=g_contactWaitLoadImgs.length-1;i>=0;i--){
-			var tmpDom = $(g_contactWaitLoadImgs[i]);
-			if(tmpDom.offset().top < height){
-				tmpDom.css("background-image","url("+tmpDom.attr("data-url")+")").removeClass("waitLoad").removeAttr("data-url");
-				g_contactWaitLoadImgs.splice(i,1);
-			}
-		}
-	});
+		var grid = "<div class=\"mem\" data-num="+i+">"+
+		            "<div class=\"img\" ><img src='"+img_url+"'></div>"+
+		        	"<div class=\"name\">"+i+"</div>"+
+		        "</div>";
+		arr.push(grid);
+	}
+
+	var totalPage = Math.ceil(arr.length/40);
+	var pageNum = 1;
+
+  	pagination.append('<li><a class="active" href="#page1">1</a></li>');
+  	for(var i=2;i <= totalPage;i++){
+  		pagination.append('<li><a href="#page'+i+'">'+i+'</a></li>');
+  	}
+  	$("body").append('<div id="page1" class="contact-mems"></div>');
+  	appendMem("page1",pageNum);
+
+  	pagination.on('click','li a',function(){
+  		if($(this).hasClass("active")) return;
+  		$('.contact-mems').remove();
+  		$(".pagination li a").removeClass("active");
+
+  		$(this).addClass("active");
+  		var pageId = $(this).attr('href').replace(/\#/,'');
+  		pageNum = $(this).text();
+  		$("body").append('<div id="'+pageId+'" class="contact-mems"></div>');
+  		appendMem(pageId,pageNum);
+  	});
+  	
+  	function appendMem(pageId,num){
+  		// console.log(40*(num-1),40*num-1);
+  		for(var i=40*(num-1); i<=40*num-1; i++){
+  			$("#"+pageId).append(arr[i]);
+  		}
+		$("#"+pageId).show();
+  	}
+
+  	$(".pagePrev").click(function(){
+  		if(pageNum <= 1) return;
+  		pageNum--;
+  		$('.pagination li a[href="#page'+pageNum+'"]').trigger('click');
+  	});
+
+  	$(".pageNext").click(function(){
+  		if(pageNum >= totalPage) return;
+  		pageNum++;
+  		$('.pagination li a[href="#page'+pageNum+'"]').trigger('click');
+  		// scrollPageBar();
+  	});
+
+  	function scrollPageBar(){
+  		var test = 0;
+  		console.log($('.pagination li a[class="active"]').offset().left-260,pagination.width()-50);
+  		if($('.pagination li a[class="active"]').offset().left-260 > pagination.width()-50){
+  			test+=50;
+  			pagination.animate({scrollLeft : test},600);
+  		}
+  	}
+
 })
 

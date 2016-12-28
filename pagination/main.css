@@ -3,12 +3,13 @@
   text-align: center;
 }
 .contact-mems{
-  width: 85%;
+  width: 75%;
   height: 550px;
-  overflow-y: scroll;
-  padding: 30px 0;
+  overflow-y: hidden;
+  padding: 10px;
   margin: 0 auto;
   box-shadow: 0px 0px 12px 0px rgba(50, 50, 50, 0.37);
+  display: none;
 }
 .mem{
   height: 128px;
@@ -39,4 +40,53 @@
   text-align: center;
   font-size: 16px;
   word-break: break-word;
+}
+
+.pageBar{
+  width: 100%;
+  margin-bottom: 20px;
+  text-align: center;
+}
+.pagination{
+  max-width: 60%;
+  padding: 10px 0;
+  display: inline-block;
+  overflow-x: scroll;
+}
+
+.pagination li{
+  display: inline;
+}
+
+.pagination li a {
+  color: black;
+  /*float: left;*/
+  padding: 8px 16px;
+  text-decoration: none;
+  border: 1px solid #ddd;
+  /*margin: 0 4px;*/
+}
+
+.pagination li a.active{
+  background-color: #4CAF50;
+  color: white;
+}
+
+.pagination li a:hover:not(.active){
+  background-color: #ddd;
+}
+
+.pagePrev, .pageNext{
+  display: inline-block;
+  color: black;
+  padding: 8px 16px;
+  border: 1px solid #ddd;
+  margin: 0px 4px;
+  cursor: pointer;
+  box-sizing: border-box;
+  vertical-align: top;
+}
+
+.pagePrev:hover, .pageNext:hover{
+  background-color: #ddd;
 }

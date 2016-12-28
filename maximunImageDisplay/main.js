@@ -18,18 +18,17 @@ $(function(){
 		arr.push(grid);
 		// $(".contact-mems").append(grid);
 	}
-
-
+	
   	console.log(arr);
 
 	memContainer.scroll(function(e) {
 		var height = $(this).height();	//500
 		var scrollTop = $(this).scrollTop();	
-  		console.log(height,scrollTop);
+  		// console.log(height,scrollTop);
   		// console.log(Math.floor(scrollTop / height));
   		if(scrollTop > height){
   			var test = Math.floor(scrollTop / height);
-  			// $(".contact-mems").append();
+  			console.log(test);
   		}
 	});
 })

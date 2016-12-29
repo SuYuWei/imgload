@@ -2,7 +2,7 @@ $(function(){
 
 	var pagination = $(".pagination");
 	var arr = [];
-	for(var i=0;i<123;i++){
+	for(var i=0;i<1000;i++){
 
 		var img_url = "http://fakeimg.pl/70x70/"+Math.floor((Math.random()*100000)+99999);
 		

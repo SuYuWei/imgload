@@ -1,8 +1,8 @@
 # imgload
 Load 1000 images smartly
 
-lazyload
+### lazyload
 
-Maximun Image Display
+### Maximun Image Display
 
-Pagination
+### Pagination
